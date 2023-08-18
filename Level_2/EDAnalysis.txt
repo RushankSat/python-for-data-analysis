@@ -1,0 +1,72 @@
+for filling missing data
+df['Age'].fillna(df['Age'].mean(),inplace=True)
+==============================================
+#Import necessary libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+#Loading the dataset
+df = pd.read_csv("D://titanic.csv")
+#print full data set
+df
+#print first 5 records
+df.head()
+#print last 5 records
+df.tail()
+#total number of rows and columns
+df.shape
+#print only rows
+df.shape[0]
+#print only columns
+df.shape[1]
+#loc
+df.loc[:,['Survived','Pclass']]
+#iloc
+df.iloc[:,:2]
+#ix
+df.ix[:,['Survived']]
+#ix
+df.ix[:,:5]
+#data visualization
+sns.set_style('whitegrid')
+sns.countplot(x="Survived",hue="Sex",data=df)
+sns.set_style('whitegrid')
+sns.countplot(x="Survived",hue="Pclass",data=df)
+#check NAN values
+sns.heatmap(df.isnull(),yticklabels=False,cbar=False,cmap='viridis')
+#descriptive statistics
+df.describe()
+#print full summary
+df.info()
+plt.figure(figsize=(12,7))
+sns.boxplot(x='Pclass',y='Age',data=df)
+def compute_age(cols):
+    Age=cols[0]
+    Pclass=cols[1]
+    
+    if(pd.isnull(Age)):
+        if Pclass==1:
+            return 37
+        elif Pclass==2:
+            return 29
+        else:
+            return 24
+    else:
+        return Age
+df['Age']=df[['Age','Pclass']].apply(compute_age,axis=1)
+df.info()
+df.drop('Cabin',axis=1,inplace=True)
+#converting string values to categorical variables
+sex=pd.get_dummies(df['Sex'],drop_first=True)
+embark=pd.get_dummies(df['Embarked'],drop_first=True)
+Pcl=pd.get_dummies(df['Pclass'],drop_first=True)
+#concat
+df = pd.concat([df,sex,embark,Pcl],axis=1)
+#drop unncessary columns
+df.drop(['Sex','Embarked','Pclass','PassengerId','Name','Ticket','Fare'],axis=1,inplace=True)
+#Dependent variable
+y=df["Survived"]
+#independent variable
+x=df.drop("Survived",axis=1)

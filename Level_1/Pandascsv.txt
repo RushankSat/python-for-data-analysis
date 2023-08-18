@@ -1,0 +1,19 @@
+import pandas as pd
+df = pd.read_csv("D://titanic.csv")
+df #print full data
+df.shape #print total number of rows and columns
+df.shape[0] #print total number of rows
+df.shape[1]#print total number of columns
+df.columns#print column names
+df.dtypes #print datatypes of column names
+df.head()#print first 5 records
+df.tail()#print last 5 records
+df.head(2)#print first 2 records
+df.tail(2)#print last 2 records
+df.isnull().sum()#print null NAN values sum
+df.info()#print non null values
+df.describe()#descriptive statistics
+df.loc[:,['Survived','Name']]#access via column names
+df.iloc[:,:2]#access via index position
+df.ix[:,['Fare','Name']]#access via column names and index position
+df.ix[:,:3]

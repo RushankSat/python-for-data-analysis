@@ -1,0 +1,23 @@
+import pandas as pd
+left = pd.DataFrame({
+         'id':[1,2,3,4,5],
+         'Name': ['Andrew', 'Amy', 'Kundan', 'Deepak', 'Vishal'],
+         'Project_id':['proj1','proj2','proj4','proj6','proj5']})
+right = pd.DataFrame(
+         {'id':[1,2,3,4,5],
+         'Name': ['Krish', 'Chris', 'Bran', 'Bryce', 'Ram'],
+         'Project_id':['proj2','proj4','proj3','proj6','proj5']})
+print(left)
+print(right)
+print(pd.merge(left,right,on='id'))
+print(pd.merge(left,right,on=['id','Project_id']))
+print(pd.merge(left, right, on='Project_id', how='left'))
+print(pd.merge(left, right, on='Project_id', how='right'))
+print(pd.merge(left, right, on='Project_id', how='outer'))
+print(pd.merge(left, right, on='Project_id', how='inner'))
+
+
+left keyword for left outer join
+right keyword for right outer join
+outer keyword for full outer join[union]
+inner keyword for inner join[default inner join(intersect)]
